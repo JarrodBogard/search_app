@@ -1,24 +1,13 @@
-const User = ({ data, filteredData }) => {
+const User = ({ filteredData, currentItems }) => {
+  // {data} do i need this prop???
   let userData;
 
   if (filteredData[0] === "invalid") {
     userData = <p>No users exist for current search parameters.</p>;
-  } else if (filteredData.length === 0) {
-    userData = data.map((element) => (
-      <li key={element.id + Math.random()} style={{ listStyle: "none" }}>
-        <img src={element.avatar} alt="user" />
-        <h3>
-          {element.first_name} {element.last_name}
-        </h3>
-      </li>
-    ));
   } else {
-    userData = filteredData.map((element) => (
-      <li
-        key={element.id + Math.random()}
-        style={{ listStyle: "none", display: "inline-block" }}
-      >
-        <img src={element.avatar} alt="user" style={{ width: "100px" }} />
+    userData = currentItems.map((element) => (
+      <li key={element.id + Math.random()} style={{ listStyle: "none" }}>
+        {/* <img src={element.avatar} alt="user" style={{ width: "100px" }} /> */}
         <h3>
           {element.first_name} {element.last_name}
         </h3>
@@ -30,3 +19,14 @@ const User = ({ data, filteredData }) => {
 };
 
 export default User;
+
+// do i need this
+// else if (filteredData.length === 0) {
+//   userData = data.map((element) => (
+//     <li key={element.id + Math.random()} style={{ listStyle: "none" }}>
+//       <img src={element.avatar} alt="user" />
+//       <h3>
+//         {element.first_name} {element.last_name}
+//       </h3>
+//     </li>
+//   ));
