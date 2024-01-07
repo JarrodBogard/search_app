@@ -1,23 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
 
 function App() {
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      const response = await fetch(
+        `https://random-data-api.com/api/v2/users?size=100`
+      );
+
+      const fetchedData = await response.json();
+
+      setData(fetchedData);
+      setIsLoading(false);
+    };
+    fetchData();
+  }, []);
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
+  const userData = data.map((element) => (
+    <li key={element.id} style={{ listStyle: "none" }}>
+      <h3>
+        {element.first_name} {element.last_name}
+      </h3>
+    </li>
+  ));
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <ul>{userData}</ul>
     </div>
   );
 }
