@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 
+import SearchFilter from "./Components/SearchFilter";
+
 function App() {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -33,6 +35,7 @@ function App() {
 
   return (
     <div>
+      <SearchFilter data={data} />
       <ul>{userData}</ul>
     </div>
   );
