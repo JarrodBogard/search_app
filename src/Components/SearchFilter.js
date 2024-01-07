@@ -1,29 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const SearchFilter = (props) => {
+const SearchFilter = ({ data, onFilter }) => {
   const [searchTerm, setSearchTerm] = useState("");
 
-  console.log(props.data);
-
-  const inputChangeHandler = (event) => {
-    setSearchTerm(event.target.value);
+  const inputChangeHandler = (searchValue) => {
+    setSearchTerm(searchValue);
     // setSearchTerm((prevState) => (prevState = event.target.value));
   };
 
-  // console.log(props.data[0].last_name.split(" "));
-  const filteredData = props.data.filter((element) =>
-    element.last_name.toLowerCase().startsWith(searchTerm.toLowerCase())
-  );
-  console.log(filteredData, "filtered data", searchTerm);
+  useEffect(() => {
+    if (searchTerm !== "") {
+      const filteredData = data.filter((element) =>
+        element.last_name.toLowerCase().startsWith(searchTerm.toLowerCase())
+      );
+
+      if (filteredData.length === 0) {
+        onFilter(["invalid"]);
+      } else onFilter(filteredData);
+    } else {
+      onFilter(data);
+    }
+  }, [data, onFilter, searchTerm]);
 
   return (
     <div>
-      <label htmlFor="last_name">Search Lastname: </label>
+      <label htmlFor="last_name">Search by last name: </label>
       <input
         type="text"
         id="last_name"
         value={searchTerm}
-        onChange={inputChangeHandler}
+        onChange={(event) => inputChangeHandler(event.target.value)}
       />
     </div>
   );
