@@ -35,6 +35,7 @@ function App() {
 
   const filteredDataHandler = useCallback((filtered) => {
     setFilteredData(filtered);
+    setCurrentPage(1);
   }, []);
 
   const paginate = (number) => {

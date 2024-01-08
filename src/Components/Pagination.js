@@ -7,7 +7,7 @@ const Pagination = ({ itemsPerPage, totalItems, paginate }) => {
 
   const pages = pageNumbers.map((number) => (
     <li key={number}>
-      <a href="!#" onClick={() => paginate(number)}>
+      <a style={{ margin: "2px" }} href="!#" onClick={() => paginate(number)}>
         {number}
       </a>
     </li>
@@ -15,7 +15,7 @@ const Pagination = ({ itemsPerPage, totalItems, paginate }) => {
 
   return (
     <nav>
-      <ul>{pages}</ul>
+      <ul style={{ listStyle: "none", display: "flex" }}>{pages}</ul>
     </nav>
   );
 };
